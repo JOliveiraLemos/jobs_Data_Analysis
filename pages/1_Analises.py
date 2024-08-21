@@ -21,7 +21,7 @@ df1.loc[df1['remote_ratio']== 0, 'remote_ratio'] = 'Presencial'
 df1.loc[df1['remote_ratio']== 50, 'remote_ratio'] = 'Hibrido' 
 df1['remote_ratio'] = df1['remote_ratio'].astype(str)
 st.header("")
-image = Image.open('logo.JPEG')
+image = Image.open('logo.jpeg')
 st.sidebar.image(image, width=200)
 
 st.sidebar.markdown("Fonte:")
