@@ -127,7 +127,7 @@ with tab2:
             df_relative = df_ax4.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig5, ax = plt.subplots(figsize=(10, 6))
+            fig5, ax = plt.subplots(figsize=(20, 6))
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
@@ -167,7 +167,7 @@ with tab2:
             df_relative = df_ax2.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig4, ax = plt.subplots(figsize=(10, 6))
+            fig4, ax = plt.subplots(figsize=(20, 6))
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
@@ -189,7 +189,7 @@ with tab2:
             df_relative = df_ax7.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig6, ax = plt.subplots(figsize=(10, 6))
+            fig6, ax = plt.subplots(figsize=(20, 6))
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
