@@ -6,7 +6,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 import scipy 
-import plotly.tools as tls
 from PIL import Image 
 st.set_page_config(page_title = 'Analise das contratações de profissionais de Dados', layout = 'wide')
 ##### Leitura do Argquivo CSV
@@ -135,8 +134,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            plotly_fig = tls.mpl_to_plotly(fig5)
-            st.plotly_chart(fig5, use_container_width=True)
+            st.pyplot(fig5)
         with col2:
             st.markdown('#### Percentual de contratações Home Office por ano')
             # Combine todos os blocos de cálculo de porcentagens em uma função para evitar repetição
@@ -175,8 +173,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            plotly_fig = tls.mpl_to_plotly(fig4)
-            st.plotly_chart(fig4, use_container_width=True)
+            st.pyplot(fig4)
             
             st.markdown('##### Proporção de Home Office para Analista de Dados por tamanho de empresa e nível de experiência')
             linhaDA = ((df1['job_title'] == 'Data Analyst') & (df1['remote_ratio'] == 'Home Office'))
@@ -198,8 +195,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            plotly_fig = tls.mpl_to_plotly(fig6)
-            st.plotly_chart(fig6, use_container_width=True)
+            st.pyplot(fig6)
 
 with tab3:
     with st.container():
