@@ -6,6 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 import scipy 
+import plotly.tools as tls
 from PIL import Image 
 st.set_page_config(page_title = 'Analise das contratações de profissionais de Dados', layout = 'wide')
 ##### Leitura do Argquivo CSV
