@@ -9,7 +9,7 @@ import scipy
 from PIL import Image 
 st.set_page_config(page_title = 'Analise das contratações de profissionais de Dados', layout = 'wide')
 ##### Leitura do Argquivo CSV
-df = pd.read_csv(r'jobs_Data\global_ai_ml_data_salaries.csv')
+df = pd.read_csv(r'..\jobs_Data\global_ai_ml_data_salaries.csv')
 
 
 ####Limpeza e cópia do arquivo original
