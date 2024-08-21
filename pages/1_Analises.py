@@ -95,164 +95,162 @@ with tab1:
 with tab2:
      with st.container():
         col1, col2 = st.columns(2)
-        with col1: 
-            with st.container(): 
-                st.markdown(' #### Percentual de contratações por modalidade de trabalho')
-                df1_aux = df1.loc[:,['job_title','remote_ratio']].groupby('remote_ratio').count().reset_index()
-                df1_aux['percent'] = df1_aux['job_title']/ df1_aux['job_title'].count()
-                fig1 = px.pie(df1_aux, values = 'percent', names= 'remote_ratio', color = 'remote_ratio', 
-                        color_discrete_map={'Presencial': 'darkblue', 'Home Office': 'royalblue', 'Hibrido': 'cyan' })
-                fig1.update_traces(textposition = 'outside', textinfo = 'percent')
-                st.plotly_chart(fig1,use_container_width = True)
-            with st.container():
-                st.markdown('##### Cargos com maiores contratações Home Office')
-                lines = (df1['remote_ratio']=='Home Office')
-                df_aux1 =df1.loc[lines,'job_title'].count()
-                df_aux = pd.DataFrame({'Remoto': df1[lines]['job_title'].groupby(df1[lines]['job_title']).count()}).reset_index()
-                df_aux = df_aux.sort_values(by = 'Remoto', ascending = False)
-                top10 = df_aux.head(10)
-                fig5 = px.funnel(top10,x = 'Remoto', y = 'job_title')
-                st.plotly_chart(fig5, use_container_width= True)
-            with st.container():
-                # Distribuição da contratação de Engenheiro de Dados em regime de trabalho remoto por tamanho da empresa e nível 
-                st.markdown('##### Proporção de Home Office para Engenheiro de Dados por tamanho de empresa e nível de experiencia ')
-                linhaDE = ((df1['job_title'] == 'Data Engineer') & (df1['remote_ratio'] == 'Home Office'))
-                df_ax3 = df1.loc[linhaDE,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
-                df_ax3.rename(columns={'job_title': 'hiring'}, inplace=True)
-                df_ax4 = {'tamanho': ['S', 'M' , 'L'],
-                        'EN': [2,34,11],
-                        'MI': [2,381,15],
-                        'SE': [1,1010,19],
-                        'EX': [0,76,0]}
-                df_ax4 = pd.DataFrame(df_ax4)
-                # Calcula as porcentagens relativas
-                df_relative = df_ax4.set_index('tamanho')
-                df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
-
-                # Plotando o gráfico de colunas 100% empilhadas
-                fig5, ax = plt.subplots(figsize=(10, 6))
-                df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
-                # Adiciona rótulos e título
-
-                ax.set_xlabel('Tamanho da empresa')
-                ax.set_ylabel('Percentual de contratacoes')
-                ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
-                ax.set_xticks(range(len(df_relative.index)))
-                ax.set_xticklabels(df_relative.index, rotation=0)
+        with col1:
+            st.markdown(' #### Percentual de contratações por modalidade de trabalho')
+            df1_aux = df1.loc[:,['job_title','remote_ratio']].groupby('remote_ratio').count().reset_index()
+            df1_aux['percent'] = df1_aux['job_title']/ df1_aux['job_title'].count()
+            fig1 = px.pie(df1_aux, values = 'percent', names= 'remote_ratio', color = 'remote_ratio', 
+                    color_discrete_map={'Presencial': 'darkblue', 'Home Office': 'royalblue', 'Hibrido': 'cyan' })
+            fig1.update_traces(textposition = 'outside', textinfo = 'percent')
+            st.plotly_chart(fig1,use_container_width = True)
             
-                st.pyplot(fig5)            
+            st.markdown('##### Cargos com maiores contratações Home Office')
+            lines = (df1['remote_ratio']=='Home Office')
+            df_aux1 =df1.loc[lines,'job_title'].count()
+            df_aux = pd.DataFrame({'Remoto': df1[lines]['job_title'].groupby(df1[lines]['job_title']).count()}).reset_index()
+            df_aux = df_aux.sort_values(by = 'Remoto', ascending = False)
+            top10 = df_aux.head(10)
+            fig5 = px.funnel(top10,x = 'Remoto', y = 'job_title')
+            st.plotly_chart(fig5, use_container_width= True)
+            # Distribuição da contratação de Engenheiro de Dados em regime de trabalho remoto por tamanho da empresa e nível 
+            st.markdown('##### Proporção de Home Office para Engenheiro de Dados por tamanho de empresa e nível de experiencia ')
+            linhaDE = ((df1['job_title'] == 'Data Engineer') & (df1['remote_ratio'] == 'Home Office'))
+            df_ax3 = df1.loc[linhaDE,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
+            df_ax3.rename(columns={'job_title': 'hiring'}, inplace=True)
+            df_ax4 = {'tamanho': ['S', 'M' , 'L'],
+                    'EN': [2,34,11],
+                    'MI': [2,381,15],
+                    'SE': [1,1010,19],
+                    'EX': [0,76,0]}
+            df_ax4 = pd.DataFrame(df_ax4)
+            # Calcula as porcentagens relativas
+            df_relative = df_ax4.set_index('tamanho')
+            df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
+
+            # Plotando o gráfico de colunas 100% empilhadas
+            fig5, ax = plt.subplots(figsize=(10, 6))
+            df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
+            # Adiciona rótulos e título
+
+            ax.set_xlabel('Tamanho da empresa')
+            ax.set_ylabel('Percentual de contratacoes')
+            ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
+            ax.set_xticks(range(len(df_relative.index)))
+            ax.set_xticklabels(df_relative.index, rotation=0)
+        
+            st.pyplot(fig5)            
 
         with col2:
-            with st.container():
-                st.markdown('#### Percentual de contrataçãoes Home Office por ano')
-                # Contratações HomeOffice 2020
-                lines_remote2020 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2020)
-                count_remote2020 = df1[lines_remote2020]['remote_ratio'].count()
-                line_2020 = (df1['work_year'] == 2020)
-                count_total2020 = df1[line_2020]['remote_ratio'].count()
-                df1_2020 = pd.DataFrame({'Remote': [count_remote2020],
-                                            'All Modalities': [count_total2020],'Year': [2020],
-                                            'Remote_percent': [round(count_remote2020 / count_total2020*100,2)]})
-                #Contratações HomeOffice 2021
-                lines_remote2021 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2021)
-                count_remote2021 = df1[lines_remote2021]['remote_ratio'].count()
-                line_2021 = (df1['work_year'] == 2021)
-                count_total2021 = df1[line_2021]['remote_ratio'].count()
-                df1_2021 = pd.DataFrame({'Remote': [count_remote2021],
-                                            'All Modalities': [count_total2021],
-                                            'Year': [2021],
-                                            'Remote_percent': [round(count_remote2021 / count_total2021*100,2)]})
+            
+            st.markdown('#### Percentual de contrataçãoes Home Office por ano')
+            # Contratações HomeOffice 2020
+            lines_remote2020 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2020)
+            count_remote2020 = df1[lines_remote2020]['remote_ratio'].count()
+            line_2020 = (df1['work_year'] == 2020)
+            count_total2020 = df1[line_2020]['remote_ratio'].count()
+            df1_2020 = pd.DataFrame({'Remote': [count_remote2020],
+                                        'All Modalities': [count_total2020],'Year': [2020],
+                                        'Remote_percent': [round(count_remote2020 / count_total2020*100,2)]})
+            #Contratações HomeOffice 2021
+            lines_remote2021 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2021)
+            count_remote2021 = df1[lines_remote2021]['remote_ratio'].count()
+            line_2021 = (df1['work_year'] == 2021)
+            count_total2021 = df1[line_2021]['remote_ratio'].count()
+            df1_2021 = pd.DataFrame({'Remote': [count_remote2021],
+                                        'All Modalities': [count_total2021],
+                                        'Year': [2021],
+                                        'Remote_percent': [round(count_remote2021 / count_total2021*100,2)]})
 
-                #Contratações HomeOffice 2022
-                lines_remote2022 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2022)
-                count_remote2022 = df1[lines_remote2022]['remote_ratio'].count()
-                line_2022 = (df1['work_year'] == 2022)
-                count_total2022 = df1[line_2022]['remote_ratio'].count()
-                df1_2022 = pd.DataFrame({'Remote': [count_remote2022],
-                                            'All Modalities': [count_total2022],
-                                            'Year': [2022],
-                                            'Remote_percent': [round(count_remote2022 / count_total2022*100,2)]})
+            #Contratações HomeOffice 2022
+            lines_remote2022 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2022)
+            count_remote2022 = df1[lines_remote2022]['remote_ratio'].count()
+            line_2022 = (df1['work_year'] == 2022)
+            count_total2022 = df1[line_2022]['remote_ratio'].count()
+            df1_2022 = pd.DataFrame({'Remote': [count_remote2022],
+                                        'All Modalities': [count_total2022],
+                                        'Year': [2022],
+                                        'Remote_percent': [round(count_remote2022 / count_total2022*100,2)]})
 
-                #Contratações HomeOffice 2023
-                lines_remote2023 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2023)
-                count_remote2023 = df1[lines_remote2023]['remote_ratio'].count()
-                line_2023 = (df1['work_year'] == 2023)
-                count_total2023 = df1[line_2023]['remote_ratio'].count()
-                df1_2023 = pd.DataFrame({'Remote': [count_remote2023],
-                                            'All Modalities': [count_total2023],
-                                            'Year': [2023],
-                                            'Remote_percent': [round(count_remote2023 / count_total2023*100,2)]})
+            #Contratações HomeOffice 2023
+            lines_remote2023 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2023)
+            count_remote2023 = df1[lines_remote2023]['remote_ratio'].count()
+            line_2023 = (df1['work_year'] == 2023)
+            count_total2023 = df1[line_2023]['remote_ratio'].count()
+            df1_2023 = pd.DataFrame({'Remote': [count_remote2023],
+                                        'All Modalities': [count_total2023],
+                                        'Year': [2023],
+                                        'Remote_percent': [round(count_remote2023 / count_total2023*100,2)]})
 
-                #Contratações HomeOffice 2024
-                lines_remote2024 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2024)
-                count_remote2024 = df1[lines_remote2024]['remote_ratio'].count()
-                line_2024 = (df1['work_year'] == 2024)
-                count_total2024 = df1[line_2024]['remote_ratio'].count()
-                df1_2024 = pd.DataFrame({'Remote': [count_remote2024],
-                                            'All Modalities': [count_total2024],
-                                            'Year': [2024],
-                                            'Remote_percent': [round(count_remote2024 / count_total2024*100,2)]})
+            #Contratações HomeOffice 2024
+            lines_remote2024 = (df1['remote_ratio'] == 'Home Office') & (df1['work_year'] == 2024)
+            count_remote2024 = df1[lines_remote2024]['remote_ratio'].count()
+            line_2024 = (df1['work_year'] == 2024)
+            count_total2024 = df1[line_2024]['remote_ratio'].count()
+            df1_2024 = pd.DataFrame({'Remote': [count_remote2024],
+                                        'All Modalities': [count_total2024],
+                                        'Year': [2024],
+                                        'Remote_percent': [round(count_remote2024 / count_total2024*100,2)]})
 
-                #Percentual de Contratações HomeOffice nos últimos 5 anos
-                df_concat = pd.concat([df1_2020, df1_2021, df1_2022, df1_2023, df1_2024], axis = 0)
-                fig3 = px.bar(df_concat, x='Year', y='Remote_percent', text = 'Remote_percent')
-                fig3.update_traces(textposition = 'outside')
-                st.plotly_chart(fig3,use_container_width = True)
-            with st.container():
-                # Distribuição da contratação de cientista de Dados em regime de trabalho remoto por tamanho da empresa e nível 
-                st.markdown('##### Proporção de Home Office para Cientista de Dados por tamanho de empresa e nível de experiencia')
-                linhaDS = ((df1['job_title'] == 'Data Scientist') & (df1['remote_ratio'] == 'Home Office'))
-                df_ax1 = df1.loc[linhaDS,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
-                df_ax1.rename(columns={'job_title': 'hiring'}, inplace=True)
-                df_ax2 = {'tamanho': ['S', 'M' , 'L'],
-                        'EN': [4,35,10],
-                        'MI': [0,357,21],
-                        'SE': [0,1112,30],
-                        'EX': [1,58,5]}
-                df_ax2 = pd.DataFrame(df_ax2)
-                # Calcula as porcentagens relativas
-                df_relative = df_ax2.set_index('tamanho')
-                df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
+            #Percentual de Contratações HomeOffice nos últimos 5 anos
+            df_concat = pd.concat([df1_2020, df1_2021, df1_2022, df1_2023, df1_2024], axis = 0)
+            fig3 = px.bar(df_concat, x='Year', y='Remote_percent', text = 'Remote_percent')
+            fig3.update_traces(textposition = 'outside')
+            st.plotly_chart(fig3,use_container_width = True)
+            
+            # Distribuição da contratação de cientista de Dados em regime de trabalho remoto por tamanho da empresa e nível 
+            st.markdown('##### Proporção de Home Office para Cientista de Dados por tamanho de empresa e nível de experiencia')
+            linhaDS = ((df1['job_title'] == 'Data Scientist') & (df1['remote_ratio'] == 'Home Office'))
+            df_ax1 = df1.loc[linhaDS,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
+            df_ax1.rename(columns={'job_title': 'hiring'}, inplace=True)
+            df_ax2 = {'tamanho': ['S', 'M' , 'L'],
+                    'EN': [4,35,10],
+                    'MI': [0,357,21],
+                    'SE': [0,1112,30],
+                    'EX': [1,58,5]}
+            df_ax2 = pd.DataFrame(df_ax2)
+            # Calcula as porcentagens relativas
+            df_relative = df_ax2.set_index('tamanho')
+            df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-                # Plotando o gráfico de colunas 100% empilhadas
-                fig4, ax = plt.subplots(figsize=(10, 6))
-                df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
-                # Adiciona rótulos e título
+            # Plotando o gráfico de colunas 100% empilhadas
+            fig4, ax = plt.subplots(figsize=(10, 6))
+            df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
+            # Adiciona rótulos e título
 
-                ax.set_xlabel('Tamanho da empresa')
-                ax.set_ylabel('Percentual de contratacoes')
-                ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
-                ax.set_xticks(range(len(df_relative.index)))
-                ax.set_xticklabels(df_relative.index, rotation=0)
-                
-                st.pyplot(fig4)
-            with st.container():
+            ax.set_xlabel('Tamanho da empresa')
+            ax.set_ylabel('Percentual de contratacoes')
+            ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
+            ax.set_xticks(range(len(df_relative.index)))
+            ax.set_xticklabels(df_relative.index, rotation=0)
+            
+            st.pyplot(fig4)
+            
             # Distribuição da contratação de Analista de Dados em regime de trabalho remoto por tamanho da empresa e nível 
-                st.markdown('##### Proporção de Home Office para Analista de Dados por tamanho de empresa e nível de experiencia')
-                linhaDA = ((df1['job_title'] == 'Data Analyst') & (df1['remote_ratio'] == 'Home Office'))
-                df_ax6 = df1.loc[linhaDA,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
-                df_ax6.rename(columns={'job_title': 'hiring'}, inplace=True)
-                df_ax7 = {'tamanho': ['S', 'M' , 'L'],
-                        'EN': [6,228,10],
-                        'MI': [1,209,7],
-                        'SE': [9,695,6],
-                        'EX': [0,8,0]}
-                df_ax7 = pd.DataFrame(df_ax7)
-                # Calcula as porcentagens relativas
-                df_relative = df_ax4.set_index('tamanho')
-                df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
+            st.markdown('##### Proporção de Home Office para Analista de Dados por tamanho de empresa e nível de experiencia')
+            linhaDA = ((df1['job_title'] == 'Data Analyst') & (df1['remote_ratio'] == 'Home Office'))
+            df_ax6 = df1.loc[linhaDA,['job_title', 'experience_level', 'company_size']].groupby(['company_size','experience_level'])['job_title'].count().reset_index()
+            df_ax6.rename(columns={'job_title': 'hiring'}, inplace=True)
+            df_ax7 = {'tamanho': ['S', 'M' , 'L'],
+                    'EN': [6,228,10],
+                    'MI': [1,209,7],
+                    'SE': [9,695,6],
+                    'EX': [0,8,0]}
+            df_ax7 = pd.DataFrame(df_ax7)
+            # Calcula as porcentagens relativas
+            df_relative = df_ax4.set_index('tamanho')
+            df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-                # Plotando o gráfico de colunas 100% empilhadas
-                fig6, ax = plt.subplots(figsize=(10, 6))
-                df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
-                # Adiciona rótulos e título
+            # Plotando o gráfico de colunas 100% empilhadas
+            fig6, ax = plt.subplots(figsize=(10, 6))
+            df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
+            # Adiciona rótulos e título
 
-                ax.set_xlabel('Tamanho da empresa')
-                ax.set_ylabel('Percentual de contratacoes')
-                ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
-                ax.set_xticks(range(len(df_relative.index)))
-                ax.set_xticklabels(df_relative.index, rotation=0)
-                st.pyplot(fig6)
+            ax.set_xlabel('Tamanho da empresa')
+            ax.set_ylabel('Percentual de contratacoes')
+            ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
+            ax.set_xticks(range(len(df_relative.index)))
+            ax.set_xticklabels(df_relative.index, rotation=0)
+            st.pyplot(fig6)
 with tab3:
     with st.container():
         ### Salários
