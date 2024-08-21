@@ -127,14 +127,13 @@ with tab2:
             df_relative = df_ax4.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig5, ax = plt.subplots(figsize=(6, 6))
+            fig5, ax = plt.subplots()
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            #st.pyplot(fig5)
             st.plotly_chart(fig5, use_container_width=True)
         with col2:
             st.markdown('#### Percentual de contratações Home Office por ano')
@@ -167,14 +166,14 @@ with tab2:
             df_relative = df_ax2.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig4, ax = plt.subplots(figsize=(6, 6))
+            fig4, ax = plt.subplots()
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            st.pyplot(fig4)
+            st.plotly_chart(fig4, use_container_width=True)
             
             st.markdown('##### Proporção de Home Office para Analista de Dados por tamanho de empresa e nível de experiência')
             linhaDA = ((df1['job_title'] == 'Data Analyst') & (df1['remote_ratio'] == 'Home Office'))
@@ -189,14 +188,14 @@ with tab2:
             df_relative = df_ax7.set_index('tamanho')
             df_relative = df_relative.div(df_relative.sum(axis=1), axis=0) * 100
 
-            fig6, ax = plt.subplots(figsize=(6, 6))
+            fig6, ax = plt.subplots()
             df_relative.plot(kind='bar', stacked=True, colormap='viridis', ax=ax)
             ax.set_xlabel('Tamanho da empresa')
             ax.set_ylabel('Percentual de contratações')
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            st.pyplot(fig6)
+            st.plotly_chart(fig6, use_container_width=True)
 
 with tab3:
     with st.container():
