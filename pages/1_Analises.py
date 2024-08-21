@@ -134,6 +134,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
+            plotly_fig = tls.mpl_to_plotly(fig5)
             st.plotly_chart(fig5, use_container_width=True)
         with col2:
             st.markdown('#### Percentual de contratações Home Office por ano')
@@ -173,6 +174,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
+            plotly_fig = tls.mpl_to_plotly(fig4)
             st.plotly_chart(fig4, use_container_width=True)
             
             st.markdown('##### Proporção de Home Office para Analista de Dados por tamanho de empresa e nível de experiência')
@@ -195,6 +197,7 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
+            plotly_fig = tls.mpl_to_plotly(fig6)
             st.plotly_chart(fig6, use_container_width=True)
 
 with tab3:
