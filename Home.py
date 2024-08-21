@@ -2,7 +2,7 @@ import streamlit as st
 st.set_page_config(page_title = "Home")
 from PIL import Image 
 st.header("")
-image = Image.open('logo.JPEG')
+image = Image.open('logo.jpeg')
 st.sidebar.image(image, width=200)
 
 st.sidebar.markdown("Fonte: ")
