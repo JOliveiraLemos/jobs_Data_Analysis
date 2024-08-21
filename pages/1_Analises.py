@@ -134,8 +134,8 @@ with tab2:
             ax.legend(title='Nível', bbox_to_anchor=(1.05, 1), loc='upper left')
             ax.set_xticks(range(len(df_relative.index)))
             ax.set_xticklabels(df_relative.index, rotation=0)
-            st.pyplot(fig5)
-
+            #st.pyplot(fig5)
+             st.plotly_chart(fig5, use_container_width=True)
         with col2:
             st.markdown('#### Percentual de contratações Home Office por ano')
             # Combine todos os blocos de cálculo de porcentagens em uma função para evitar repetição
