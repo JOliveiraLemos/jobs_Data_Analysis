@@ -103,7 +103,7 @@ with tab2:
                 fig1 = px.pie(df1_aux, values = 'percent', names= 'remote_ratio', color = 'remote_ratio', 
                         color_discrete_map={'Presencial': 'darkblue', 'Home Office': 'royalblue', 'Hibrido': 'cyan' })
                 fig1.update_traces(textposition = 'outside', textinfo = 'percent')
-                st.plotly_chart(fig1,use_conteiner_width = True)
+                st.plotly_chart(fig1,use_container_width = True)
             with st.container():
                 st.markdown('##### Cargos com maiores contratações Home Office')
                 lines = (df1['remote_ratio']=='Home Office')
@@ -197,7 +197,7 @@ with tab2:
                 df_concat = pd.concat([df1_2020, df1_2021, df1_2022, df1_2023, df1_2024], axis = 0)
                 fig3 = px.bar(df_concat, x='Year', y='Remote_percent', text = 'Remote_percent')
                 fig3.update_traces(textposition = 'outside')
-                st.plotly_chart(fig3,use_conteiner_width = True)
+                st.plotly_chart(fig3,use_container_width = True)
             with st.container():
                 # Distribuição da contratação de cientista de Dados em regime de trabalho remoto por tamanho da empresa e nível 
                 st.markdown('##### Proporção de Home Office para Cientista de Dados por tamanho de empresa e nível de experiencia')
